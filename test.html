@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>linearTransform Test</title>
+
+<script src="lineartransform.js"></script>
+
+
+</head>
+<body>
+
+<p>Test for JavaScript object for linear transform between two scales.</p>
+
+
+
+<p id="results"></p>
+
+<script>
+//should really load test data from a json file
+var tests = [
+{testName:"Example 1", x0:100, x1:200, y0:10, y1:100, xvalues:[100, 150, 200, 250], yvalues:[10, 0, 100]}, 
+{testName:"Example 2", x0:0, x1:10, y0:0, y1:100, xvalues:[0, 5, 10, 20], yvalues:[10, 100, 200]},
+{testName:"Example 3", x0:10, x1:0, y0:0, y1:100, xvalues:[0, 5, 10, 20], yvalues:[10, 100, 200]}];
+
+var j = 0;
+for (j = 0; j < tests.length; j++) {
+
+var tfm = new linearTransform(tests[j].x0, tests[j].x1, tests[j].y0, tests[j].y1);
+
+    var node = document.createElement("h3");
+	node.innerHTML = tests[j].testName;
+    document.getElementById("results").appendChild(node);
+	t = "x<sub>min</sub> = " + tfm.x0 + ", x<sub>max</sub> = " + tfm.x1 + ", y<sub>min</sub> = " + tfm.y0 + ", y<sub>max</sub> = " + tfm.y1;
+    var node = document.createElement("p");
+	node.innerHTML = t;
+    document.getElementById("results").appendChild(node);
+
+    var node = document.createElement("ul");
+	for (i = 0; i < tests[j].xvalues.length; i++) {
+	    var node1 = document.createElement("li");
+        node1.innerHTML = "x = " + tests[j].xvalues[i] + ", y = " + tfm.y(tests[j].xvalues[i]);
+		node.appendChild(node1);
+    }
+    document.getElementById("results").appendChild(node);
+    var node = document.createElement("ul");
+	for (i = 0; i < tests[j].yvalues.length; i++) {
+	    var node1 = document.createElement("li");
+        node1.innerHTML = "y = " + tests[j].yvalues[i] + ", x = " + tfm.x(tests[j].yvalues[i]);
+		node.appendChild(node1);
+    }
+    document.getElementById("results").appendChild(node);
+}
+
+</script>
+</body>
+</html>
